@@ -1,0 +1,35 @@
+import React, { useEffect, useState} from "react";
+ const App = () => {
+    const [search, setSearch] = useState("");
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        fetch('https://pixabay.com/api/?key=49913786-bbc3e9249a58774d5f8bb64f3&q=pahalgam&image_type=photo')
+
+        .then((res) => res.json())
+        .then((d) => setData(d.hits));
+    });
+
+    return (
+        <div>
+            <input
+            placeholder="Search Images"
+            onChange={(e) => setSearch(e.target.value)}
+            />
+            {data.map((item, index) => {
+                return (
+                    <div key = {item.id}>
+                        <img
+                        src={item.largeImageURL}
+                        height={"300px"}
+                        width={"300px"}
+                        alt={item.tags}
+                        />
+                     </div>   
+                );
+            })}
+        </div>
+    );
+    
+ };
+ export default App;
